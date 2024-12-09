@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
-const tokenService = require('../services/token');
+const tokenService = require('../services/token.service');
 const router = express.Router({ mergeParams: true });
 
 // /api/auth/signUp

@@ -1,4 +1,4 @@
-const tokenService = require('../services/token');
+const tokenService = require('../services/token.service');
 
 function auth(req, res, next) {
 	if (req.method === 'OPTIONS') {
