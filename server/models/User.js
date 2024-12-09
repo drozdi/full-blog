@@ -1,22 +1,25 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+const roles = require('../constants/roles');
 
-const UserSchema = mongoose.Schema({
-	username: { type: String },
-	email: {
-		type: String,
-		required: true,
-		unique: true,
-		validate: {
-			validator: validator.isEmail,
-			message: 'Invalid email',
+const UserSchema = mongoose.Schema(
+	{
+		username: { type: String },
+		login: {
+			type: String,
+			required: true,
+			unique: true,
+		},
+		password: {
+			type: String,
+			required: true,
+		},
+		role: {
+			type: Number,
+			default: roles.USER,
 		},
 	},
-	password: {
-		type: String,
-		required: true,
-	},
-});
+	{ timestamps: true },
+);
 
 const User = mongoose.model('User', UserSchema);
 
