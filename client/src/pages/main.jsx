@@ -1,12 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { repComment, repPost } from '../api/rep';
 import { Loader } from '../components';
 import { debounce } from '../utils/debounce';
 import { Pagination } from './components/pagination';
 import { PostCard } from './components/post-card';
 import { Search } from './components/search';
-import { getCommentsCount, getLastPageFromLinks } from './components/utils';
 
 export function MainPage() {
 	const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +17,7 @@ export function MainPage() {
 
 	useEffect(() => {
 		async function fetchData() {
-			setIsLoading(true);
+			/*setIsLoading(true);
 
 			const res = await repPost.find(search, page, limit);
 			setLastPage(getLastPageFromLinks(res.headers.get('link') || ''));
@@ -35,7 +33,7 @@ export function MainPage() {
 					};
 				}),
 			);
-			setIsLoading(false);
+			setIsLoading(false);*/
 		}
 		fetchData();
 	}, [page, limit, startSearch, search]);

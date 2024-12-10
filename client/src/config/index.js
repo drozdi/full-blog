@@ -1,1 +1,1 @@
-export * from './dbEndpoint';
+export * from './apiEndpoint';

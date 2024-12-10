@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { setUser } from '../../actions';
-import { server } from '../../bff/bff';
 import { useToast } from '../../components/toast';
 import { XBtn, XInput } from '../../components/ui';
 import { ROLE } from '../../constants';
 import { useResetForm } from '../../hooks';
 import { selectUserRole } from '../../selectors';
+
+import { authApi } from '../../api';
 
 const regFormSchema = yup.object().shape({
 	login: yup
@@ -52,7 +53,7 @@ export const RegistrationForm = () => {
 	useResetForm(reset);
 	const roleId = useSelector(selectUserRole);
 	const onSubmit = async ({ login, password }) => {
-		server.register(login, password).then(({ error, res }) => {
+		authApi.register({ login, password }).then(({ error, user }) => {
 			if (error) {
 				toast.show({
 					children: error,
@@ -60,8 +61,8 @@ export const RegistrationForm = () => {
 				});
 				return;
 			}
-			dispatch(setUser(res));
-			sessionStorage.setItem('userData', JSON.stringify(res));
+			dispatch(setUser(user));
+			sessionStorage.setItem('userData', JSON.stringify(user));
 			navigate('/');
 		});
 	};

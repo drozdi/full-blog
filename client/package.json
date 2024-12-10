@@ -2,6 +2,7 @@
 	"name": "blog",
 	"version": "0.1.0",
 	"private": true,
+	"proxy": "http://localhost:8080",
 	"dependencies": {
 		"@hookform/resolvers": "^3.9.1",
 		"@mdi/font": "^7.4.47",

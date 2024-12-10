@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { setUser } from '../../actions';
-import { server } from '../../bff/bff';
+import { authApi } from '../../api';
 import { useToast } from '../../components/toast';
 import { XBtn, XInput } from '../../components/ui';
 import { ROLE } from '../../constants';
@@ -48,7 +48,7 @@ export const LoginForm = () => {
 
 	const onSubmit = async ({ login, password }) => {
 		setIsLoading(true);
-		server.autorize(login, password).then(({ error, res }) => {
+		authApi.login({ login, password }).then(({ error, user }) => {
 			setIsLoading(false);
 			if (error) {
 				toast.show({
@@ -57,8 +57,8 @@ export const LoginForm = () => {
 				});
 				return;
 			}
-			sessionStorage.setItem('userData', JSON.stringify(res));
-			dispatch(setUser(res));
+			sessionStorage.setItem('userData', JSON.stringify(user));
+			dispatch(setUser(user));
 		});
 	};
 

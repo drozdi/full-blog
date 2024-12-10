@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { repRole, repUser } from '../api/rep';
+import { usersApi } from '../api';
 import { Loader, PrivateContent, useToast } from '../components';
 import { XItem, XItemLabel, XItemSection, XList } from '../components/ui';
 import { ROLE } from '../constants';
@@ -21,8 +21,8 @@ export const UsersPage = () => {
 			}
 			setLoading(true);
 
-			const users = await repUser.list().then((res) => res.json());
-			const roles = await repRole.list().then((res) => res.json());
+			const users = await usersApi.getUsers();
+			const roles = await usersApi.getRoles();
 			setUsers(users);
 			setRoles(roles);
 			setLoading(false);
@@ -36,7 +36,7 @@ export const UsersPage = () => {
 		}
 		const result = window.confirm('Удалить пользователя?');
 		if (result === true) {
-			repUser.delete(id).then(() => setReload(!reload));
+			//repUser.delete(id).then(() => setReload(!reload));
 		}
 	};
 	if (isLoading) {

@@ -1,24 +1,24 @@
-const tokenService = require('../services/token.service');
+const User = require('../models/User');
+const { verify } = require('../helpers/token');
 
-function auth(req, res, next) {
-	if (req.method === 'OPTIONS') {
-		return next();
-	}
-
+const auth = async (req, res, next) => {
 	try {
-		const token = req.headers.authorization.split(' ')[1];
-		if (!token) {
-			return res.status(401).json({ message: 'Unauthorized' });
+		const tokenData = verify(req.cookies.token);
+
+		const user = await User.findOne({ _id: tokenData.id });
+
+		if (!user) {
+			res.send({ error: 'Authenticated user not found' });
+
+			return;
 		}
 
-		const data = tokenService.validateAccess(token);
-
-		req.user = data;
+		req.user = user;
 
 		next();
 	} catch (e) {
-		res.status(401).json({ message: 'Unauthorized' });
+		res.send({ error: e.message || 'Token error' });
 	}
-}
+};
 
 module.exports = auth;

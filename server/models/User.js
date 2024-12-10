@@ -3,7 +3,6 @@ const roles = require('../constants/roles');
 
 const UserSchema = mongoose.Schema(
 	{
-		username: { type: String },
 		login: {
 			type: String,
 			required: true,
