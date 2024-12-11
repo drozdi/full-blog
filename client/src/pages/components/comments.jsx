@@ -1,23 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment } from '../../actions';
-import { repComment } from '../../api/rep';
 import { XBtn } from '../../components/ui';
 import { ROLE } from '../../constants';
-import { selectUserId, selectUserRole } from '../../selectors';
+import { selectUserRole } from '../../selectors';
 import { Comment } from './comment';
 
 export function Comments({ comments, postId }) {
 	const [newComment, setNewComment] = useState('');
-	const author_id = useSelector(selectUserId);
 	const userRole = useSelector(selectUserRole);
 	const dispatch = useDispatch();
 	const isGuest = userRole === ROLE.GUEST;
 	useEffect(() => {}, []);
 	const onNewCommentAdd = (content) => {
-		dispatch(
-			addComment(repComment, { author_id, post_id: parseInt(postId, 10), content }),
-		);
+		dispatch(addComment(postId, { content }));
 		setNewComment('');
 	};
 	return (
@@ -39,7 +35,7 @@ export function Comments({ comments, postId }) {
 				</div>
 			)}
 			{comments.map((comment) => (
-				<Comment key={comment.id} {...comment} />
+				<Comment key={comment.id} {...comment} post_id={postId} />
 			))}
 		</div>
 	);

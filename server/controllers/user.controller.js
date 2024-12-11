@@ -3,8 +3,6 @@ const User = require('../models/User');
 const { generate } = require('../helpers/token');
 const ROLES = require('../constants/roles');
 
-// register
-
 async function register(login, password) {
 	if (!password) {
 		throw new Error('Password is empty');
@@ -17,8 +15,6 @@ async function register(login, password) {
 
 	return { user, token };
 }
-
-// login
 
 async function login(login, password) {
 	const user = await User.findOne({ login });
@@ -50,13 +46,10 @@ function getRoles() {
 	];
 }
 
-// delete
-
 function deleteUser(id) {
 	return User.deleteOne({ _id: id });
 }
 
-// edit (roles)
 function updateUser(id, userData) {
 	return User.findByIdAndUpdate(id, userData, { returnDocument: 'after' });
 }

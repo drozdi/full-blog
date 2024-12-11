@@ -1,12 +1,8 @@
-import { genDate } from '../utils/gen-date';
+import { postsApi } from '../api';
 import { setPost } from './index';
-export const addComment = (rep, data) => (dispatch, getState) =>
-	rep
-		.post({ ...data, published_at: genDate() })
-		.then((res) => res.json())
-		.then((comment) => {
-			const post = getState().post;
-			const user = getState().user;
-			post.comments.push({ ...comment, author: user.login });
-			dispatch(setPost(post));
-		});
+export const addComment = (post_id, data) => (dispatch, getState) =>
+	postsApi.addComment(post_id, { ...data }).then(({ data }) => {
+		const post = getState().post;
+		post.comments.push({ ...data });
+		dispatch(setPost(post));
+	});

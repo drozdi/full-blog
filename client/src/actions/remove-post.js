@@ -1,7 +1,2 @@
-export const removePost = (rep, id, repComment) => (dispatch, getState) => {
-	const post = getState().post;
-	[...post.comments].forEach(async (comment) => {
-		await repComment?.delete(comment.id);
-	});
-	return rep.delete(id);
-};
+import { postsApi } from '../api';
+export const removePost = (id) => (dispatch, getState) => postsApi.removePost(id);

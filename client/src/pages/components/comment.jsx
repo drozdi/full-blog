@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal, openModal, removeComment } from '../../actions';
-import { repComment } from '../../api/rep';
 import { XBtn, XIcon } from '../../components/ui';
 import { ROLE } from '../../constants';
 import { selectUserRole } from '../../selectors';
@@ -14,7 +13,7 @@ export function Comment({ post_id, id, author, content, published_at }) {
 			openModal({
 				text: 'Удалить комментарий?',
 				onConfirm: () => {
-					dispatch(removeComment(repComment, id));
+					dispatch(removeComment(post_id, id));
 					dispatch(closeModal());
 				},
 				onCancel: () => dispatch(closeModal()),

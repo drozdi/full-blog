@@ -22,4 +22,16 @@ export const postsApi = {
 		const { data } = await api.patch(`${id}`, payload);
 		return data;
 	},
+	removePost: async (id) => {
+		const { data } = await api.delete(`${id}`);
+		return data;
+	},
+	addComment: async (id, payload) => {
+		const { data } = await api.post(`${id}/comments`, payload);
+		return data;
+	},
+	removeComment: async (id, cId) => {
+		const { data } = await api.delete(`${id}/comments/${cId}`);
+		return data;
+	},
 };
