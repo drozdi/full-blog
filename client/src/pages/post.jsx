@@ -1,8 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMatch, useNavigate, useParams } from 'react-router-dom';
-import { loadPost, resetPost, setPost } from '../actions';
-import { repComment, repPost, repUser } from '../api/rep';
+import { loadPost, resetPost } from '../actions';
 import { Loader, PrivateContent, useToast } from '../components';
 import { ROLE } from '../constants';
 import { selectPost } from '../selectors';
@@ -27,7 +26,7 @@ export function PostPage() {
 			setIsLoading(false);
 			return;
 		}
-		dispatch(loadPost(repPost, id)).then(async (post) => {
+		dispatch(loadPost(id)).then(async (post) => {
 			if (!post.id) {
 				toast.show?.({
 					children: 'Статья не найдена',
@@ -35,14 +34,6 @@ export function PostPage() {
 				});
 				navigate(`/404`);
 			}
-			const comments = await repComment.find(post.id).then((res) => res.json());
-			const users = await repUser.list().then((res) => res.json());
-			post.comments = comments.map((comment) => {
-				comment.author =
-					users.find((u) => u.id === comment.author_id)?.login || 'Гость';
-				return comment;
-			});
-			dispatch(setPost(post));
 			setIsLoading(false);
 		});
 	}, [isCreating, dispatch, toast, id, navigate]);

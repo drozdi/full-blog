@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { repUser } from '../../api/rep';
+import { usersApi } from '../../api';
 import { XBtn, XItem, XItemSection } from '../../components/ui';
 export function UserRow({
 	login,
@@ -15,7 +15,7 @@ export function UserRow({
 		setSelectedRoleId(Number(target.value));
 	};
 	const onRoleSave = (id, role_id) => {
-		repUser.patch(id, { role_id }).then(() => setInitialRoleId(role_id));
+		usersApi.update(id, { role_id }).then(() => setInitialRoleId(role_id));
 	};
 	const isSaveButtonDisabled = selectedRoleId === initialRoleId;
 	return (

@@ -2,7 +2,6 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { savePost } from '../../actions';
-import { repPost } from '../../api/rep';
 import { XBtn, XInput } from '../../components/ui';
 import { SpecialPanel } from './special-panel';
 import { sanitizeContent } from './utils';
@@ -27,7 +26,7 @@ export function PostForm({ post: { id, title, image_url, content, published_at }
 			content: newContent,
 		};
 
-		dispatch(savePost(repPost, newPostData)).then(({ id }) => {
+		dispatch(savePost(newPostData)).then(({ id }) => {
 			navigate(`/post/${id}`);
 		});
 	};

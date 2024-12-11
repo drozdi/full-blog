@@ -26,7 +26,7 @@ router.get('/roles', hasRole([ROLES.ADMIN]), async (req, res) => {
 
 router.patch('/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
 	const newUser = await updateUser(req.params.id, {
-		role: req.body.roleId,
+		role: req.body.role_id,
 	});
 
 	res.send({ data: mapUser(newUser) });

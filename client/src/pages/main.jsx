@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { postsApi } from '../api';
 import { Loader } from '../components';
 import { debounce } from '../utils/debounce';
 import { Pagination } from './components/pagination';
@@ -17,23 +18,11 @@ export function MainPage() {
 
 	useEffect(() => {
 		async function fetchData() {
-			/*setIsLoading(true);
-
-			const res = await repPost.find(search, page, limit);
-			setLastPage(getLastPageFromLinks(res.headers.get('link') || ''));
-
-			const posts = await res.json();
-			const comments = await repComment.list().then((res) => res.json());
-
-			setPosts(
-				posts.map((post) => {
-					return {
-						...post,
-						commentsCount: getCommentsCount(comments, post.id),
-					};
-				}),
-			);
-			setIsLoading(false);*/
+			setIsLoading(true);
+			const { data } = await postsApi.getPosts(search, page, limit);
+			setPosts(data.posts);
+			setLastPage(data.lastPage);
+			setIsLoading(false);
 		}
 		fetchData();
 	}, [page, limit, startSearch, search]);

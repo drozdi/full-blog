@@ -1,19 +1,13 @@
-import { genDate } from '../utils/gen-date';
+import { postsApi } from '../api';
 import { setPost } from './set-post';
-export const savePost = (rep, post) => (dispatch) => {
+export const savePost = (post) => (dispatch) => {
 	return post.id
-		? rep.patch(post.id, post).then(() => {
-				dispatch(setPost(post));
-				return post;
+		? postsApi.updatePost(post.id, post).then(({ data }) => {
+				dispatch(setPost(data));
+				return data;
 			})
-		: rep
-				.post({
-					...post,
-					published_at: genDate(),
-				})
-				.then((res) => res.json())
-				.then((data) => {
-					dispatch(setPost(data));
-					return data;
-				});
+		: postsApi.addPost(post).then(({ data }) => {
+				dispatch(setPost(data));
+				return data;
+			});
 };

@@ -23,8 +23,8 @@ export const UsersPage = () => {
 
 			const users = await usersApi.getUsers();
 			const roles = await usersApi.getRoles();
-			setUsers(users);
-			setRoles(roles);
+			setUsers(users.data);
+			setRoles(roles.data);
 			setLoading(false);
 		}
 		fetchData();
@@ -36,7 +36,7 @@ export const UsersPage = () => {
 		}
 		const result = window.confirm('Удалить пользователя?');
 		if (result === true) {
-			//repUser.delete(id).then(() => setReload(!reload));
+			usersApi.delete(id).then(() => setReload(!reload));
 		}
 	};
 	if (isLoading) {

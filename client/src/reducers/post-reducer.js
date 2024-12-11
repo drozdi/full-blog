@@ -3,7 +3,7 @@ import { ACTION_TYPE } from '../actions';
 const initialState = {
 	id: '',
 	title: '',
-	imageUrl: '',
+	image_url: '',
 	content: '',
 	publishedAt: '',
 	comments: [],
