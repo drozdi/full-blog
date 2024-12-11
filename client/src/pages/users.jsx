@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { usersApi } from '../api';
-import { Loader, PrivateContent, useToast } from '../components';
+import { Loader, PrivateContent } from '../components';
 import { XItem, XItemLabel, XItemSection, XList } from '../components/ui';
 import { ROLE } from '../constants';
 import { selectUserRole } from '../selectors';
@@ -12,7 +12,6 @@ export const UsersPage = () => {
 	const [users, setUsers] = useState([]);
 	const [roles, setRoles] = useState([]);
 	const [reload, setReload] = useState([]);
-	const toast = useToast();
 	const [isLoading, setLoading] = useState(false);
 	useEffect(() => {
 		async function fetchData() {

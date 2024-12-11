@@ -11,7 +11,7 @@ const routes = require('./routes');
 const PORT = process.env.PORT ?? 8080;
 const app = express();
 
-app.use(express.static('../frontend/build'));
+app.use(express.static('../client/build'));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -20,9 +20,12 @@ app.use(cors());
 
 app.use('/api', routes);
 
+app.get('*', (req, res) => {
+	res.sendFile(path.resolve('..', 'client', 'build', 'index.html'));
+});
+
 async function start() {
 	try {
-		/// ??????
 		mongoose.connection.once('open', () => {});
 		await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 
