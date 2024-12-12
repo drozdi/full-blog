@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const path = require('path');
 const chalk = require('chalk');
 const cors = require('cors');
 const mongoose = require('mongoose');
