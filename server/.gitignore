@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 /.osp
-#.env
+.env
 .pnp.js
 
 # testing

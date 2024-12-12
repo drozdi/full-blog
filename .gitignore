@@ -5,7 +5,7 @@
 .osp
 .pnp.js
 node_modules
-#.env
+.env
 
 # testing
 /coverage
